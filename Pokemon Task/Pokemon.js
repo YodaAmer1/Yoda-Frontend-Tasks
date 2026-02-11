@@ -1,7 +1,9 @@
+
 let pokemons = [];
-let limit = 20;
+let offset = 0;
+const limit = 10;
 async function showPokemons() {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit${limit}", {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`, {
         method: "GET"
     });
 
@@ -18,21 +20,23 @@ async function showPokemons() {
         });
         list.appendChild(li);
     });
+
 }
 
-document.getElementById("loadMoreBtn").addEventListener("click", function (){
-    limit = 30;
+document.getElementById("loadMoreBtn").addEventListener("click", function (){ 
+    offset += 10;  
     showPokemons();
 })
 document.getElementById("SubmitBtn").addEventListener("click", function () {
     const searchValue = document.getElementById("Search").value.toLowerCase();
     const list = document.getElementById("pokemon-list");
 
-    list.innerHTML = "";
+    list.textContent = "";
      pokemons.forEach(function (pokemon) {
         if(pokemon.name.includes(searchValue)){
             const li = document.createElement("li");
             li.textContent = pokemon.name;
+            li.addEventListener("click", function () { showPokemonDetails(pokemon.url); });
             list.appendChild(li);
         }
      });
