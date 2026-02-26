@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ReposData } from "../types/RepsData";
 import { RepoDetails } from "./RepoDetails";
 import { Button} from "@mui/material";
@@ -13,10 +13,11 @@ export const ListReposComponent = (props:Props) => {
     const [search, setSearch] = useState("");
     const [hasSelected , setHasSelected] = useState(false);
     const [sortType, setSortType] = useState<"name" | "updated">("name");
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
     const repos =props.repos;
     const username = props.username
 
-    const filteredNames = repos.filter((repo) => repo.name.toLowerCase().includes(search.toLocaleLowerCase()));
+    const filteredNames = repos.filter((repo) => repo.name.toLowerCase().includes(debouncedSearchTerm.toLocaleLowerCase()));
 
     const sortedRepos = [...filteredNames].sort((a, b) => {
         if (sortType === "name") {
@@ -26,6 +27,14 @@ export const ListReposComponent = (props:Props) => {
             b.updated_at.localeCompare(a.updated_at));
         }
     });
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearchTerm(search);
+        }, 400);
+        
+        return () => clearTimeout(timer);
+    }, [search]);
 
     return(
         <div>
