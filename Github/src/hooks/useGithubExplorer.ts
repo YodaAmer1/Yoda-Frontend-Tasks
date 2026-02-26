@@ -2,7 +2,6 @@ import type { ReposData } from "../types/RepsData";
 
 export const fetchRepos= async(username: string) : Promise<ReposData[]> =>{
         try{
-
             const res = await fetch(`https://api.github.com/users/${username}/repos`);
             const data = await res.json();
             console.log(data);
