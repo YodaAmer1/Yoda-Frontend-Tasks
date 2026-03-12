@@ -39,7 +39,7 @@ export const Cart = ({cart, setCart}:CartProps) => {
 
     return(
         <div>
-            <h2 className="header">My Cart</h2>
+            <h2 className="header" style={{justifyContent: "center"}}>My Cart</h2>
              {cart.map((item) => (
                 <div className="cart-item" key={item.product.id}>
                     

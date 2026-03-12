@@ -30,9 +30,10 @@
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  background-color: crimson;
+  background-color: cyan;
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid #ddd;
@@ -42,7 +43,8 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .shop-title {
@@ -52,7 +54,9 @@
 }
 
 .search-input {
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
+  flex: 1;
   background-color: #fff;
   border-radius: 10px;
 }
@@ -69,6 +73,15 @@
 
 .cart-container {
   position: relative;
+}
+
+.cart-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background:transparent;
 }
 
 .cart-dropdown {

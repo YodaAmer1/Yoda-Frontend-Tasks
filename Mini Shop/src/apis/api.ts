@@ -1,10 +1,12 @@
 import type { Products } from "../Types/ProdData"; 
 
+const API_URL = "https://dummyjson.com/products";
+
 export const fetchProducts= async(limit:number, skip:number) : Promise<Products> =>{
         try{
-            const res = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`);
+            const res = await fetch(`${API_URL}?limit=${limit}&skip=${skip}`);
             const data = await res.json();
-            console.log(data);
+            console.log(data)
             return data
         }catch(error){
             console.error("My Error: ", error);
@@ -15,9 +17,8 @@ export const fetchProducts= async(limit:number, skip:number) : Promise<Products>
 
 export const getProductsByCategory= async(category:string) : Promise<Products> =>{
         try{
-            const res = await fetch(`https://dummyjson.com/products/category/${category}`);
+            const res = await fetch(`${API_URL}/category/${category}`);
             const data = await res.json();
-            console.log(data);
             return data
         }catch(error){
             console.error("My Error: ", error);
@@ -27,9 +28,8 @@ export const getProductsByCategory= async(category:string) : Promise<Products> =
 
 export const getSortedProducts= async(sortBy:string ) : Promise<Products> =>{
         try{
-            const res = await fetch(`https://dummyjson.com/products?${sortBy}`);
+            const res = await fetch(`${API_URL}?${sortBy}`);
             const data = await res.json();
-            console.log(data);
             return data
         }catch(error){
             console.error("My Error: ", error);
@@ -39,9 +39,8 @@ export const getSortedProducts= async(sortBy:string ) : Promise<Products> =>{
 
 export const getCategoryList= async() : Promise<string[]> =>{
         try{
-            const res = await fetch(`https://dummyjson.com/products/category-list`);
+            const res = await fetch(`${API_URL}/category-list`);
             const data = await res.json();
-            console.log(data);
             return data
         }catch(error){
             console.error("My Error: ", error);
@@ -51,9 +50,8 @@ export const getCategoryList= async() : Promise<string[]> =>{
 
 export const getProductsBySearch= async(search:string) : Promise<Products> =>{
         try{
-            const res = await fetch(`https://dummyjson.com/products/search?q=${search}`);
+            const res = await fetch(`${API_URL}/search?q=${search}&limit=194`);
             const data = await res.json();
-            console.log(data);
             return data
         }catch(error){
             console.error("My Error: ", error);
