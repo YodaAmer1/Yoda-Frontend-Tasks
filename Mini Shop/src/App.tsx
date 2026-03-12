@@ -43,7 +43,6 @@ function App() {
       setCart([...cart, { product, quantity: 1 }])
     }
   }
-  console.log("Cart hereee:",cart)
   return (
     <>
     <Header totalItems={totalItmes} cart={cart} setCart={setCart}

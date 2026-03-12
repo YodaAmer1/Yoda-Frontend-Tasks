@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import type { ProdData, Products } from "../Types/ProdData"
 import { fetchProducts, getProductsByCategory, getProductsBySearch, getSortedProducts } from "../apis/api";
 import { ProductCard } from "./ProductCard";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 interface ProductListProps{
     addToCart: (product: ProdData) => void
@@ -92,7 +92,7 @@ export const ProductList = ({addToCart,search,sortType, setSortType,category,set
                 <div style={{ display: "flex" ,justifyContent: "center", marginTop:"30px"}}>
                {loadingMore ? (
                     <div>
-                    Loading..
+                    <CircularProgress size={20}/>
                     </div>
                 ) :( 
                     <Button 

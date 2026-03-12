@@ -67,13 +67,11 @@ export const CardModal = ({product , setShowModal,addToCart,setShowAlert}:CardMo
         </Box>
 
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 4 }}>
-          <Typography id="modal-modal-description">
-            <div style={{fontSize:20 , fontWeight: 600}}>
+          <Typography id="modal-modal-description" sx={{fontSize:20 , fontWeight: 600}}>
                 Price : 
                 <span style={{ marginLeft:10 , color: "green"}}>
                     ${product.price}
                 </span>
-            </div>
           </Typography>
 
           <Button
