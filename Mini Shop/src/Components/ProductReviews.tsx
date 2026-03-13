@@ -20,7 +20,7 @@ export const ProductsReviews = ({reviews}: ProductsReviewsProps) => {
     } 
         
     return(
-        <div style={{display: "flex" ,justifyContent:"center" ,gap:16,maxWidth:900, margin:"auto",marginTop: 5}}>
+        <div style={{display: "flex" ,justifyContent:"center" ,gap:16,maxWidth: 900, margin:"auto",marginTop: 5}}>
             
             {reviews.map((review) =>
             <div key={review.reviewerName} style={{
