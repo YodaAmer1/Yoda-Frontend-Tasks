@@ -3,6 +3,8 @@ import './App.css'
 import { ProductList } from './Components/ProductList';
 import type { CartItem, ProdData } from './Types/ProdData';
 import { Header } from './Components/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { CardPage } from './Components/CardPage';
 
 function App() {
   const [search, setSearch] = useState("");
@@ -44,14 +46,41 @@ function App() {
     }
   }
   return (
-    <>
-    <Header totalItems={totalItmes} cart={cart} setCart={setCart}
-     search={search} setSearch={setSearch} setSortType={setSortType}
-      sortType={sortType} category={category} setCategory={setCategory}/>
-      
-    <ProductList addToCart={addToCart} search={debouncedSearch} 
-    sortType={sortType} setSortType={setSortType} category={category} setCategory={setCategory}/>
-    </>
+    <BrowserRouter>
+
+    <Routes>
+     <Route
+        path="/"
+        element={
+          <>
+           <Header
+            totalItems={totalItmes}
+            cart={cart}
+            setCart={setCart}
+            search={search}
+            setSearch={setSearch}
+            setSortType={setSortType}
+            sortType={sortType}
+            category={category}
+            setCategory={setCategory}
+          />
+          
+          <ProductList 
+          addToCart={addToCart}
+          search={debouncedSearch} 
+          sortType={sortType}
+           setSortType={setSortType} 
+           category={category} 
+           setCategory={setCategory}/>
+          </>
+        }/>
+    
+    <Route
+      path="/products/:id"
+      element={<CardPage addToCart={addToCart} />}
+      />
+    </Routes>
+    </BrowserRouter>
   )
 }
 
