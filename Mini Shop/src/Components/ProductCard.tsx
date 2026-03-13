@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import type { ProdData } from "../Types/ProdData"
 import { useState } from "react";
-import { CardModal } from "./CardModal";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CustomAlert } from "./CustomAlert";
+import { useNavigate } from "react-router-dom";
 
 
 interface ProductCardProps{
@@ -12,8 +12,9 @@ interface ProductCardProps{
 }
 
 export const ProductCard = ({product,addToCart} : ProductCardProps) => {
-    const [showModal, setShowModal] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+
+    const navigate = useNavigate();
 
     return(
         <div>
@@ -29,7 +30,7 @@ export const ProductCard = ({product,addToCart} : ProductCardProps) => {
                 variant="text"
                 size="small"
                 sx={{ textTransform: "none" }}
-                onClick={() => setShowModal(true)}
+                onClick={() => navigate(`/products/${product.id}`)}
             >
                 Show more...
             </Button>
@@ -41,7 +42,6 @@ export const ProductCard = ({product,addToCart} : ProductCardProps) => {
                 onClick={() => {
                 addToCart(product)
                 setShowAlert(true)
-                setShowModal(false)
                 }}
                 endIcon={<ShoppingCartIcon />}
             >
@@ -49,10 +49,6 @@ export const ProductCard = ({product,addToCart} : ProductCardProps) => {
             </Button>
 
         </div>
-        {showModal && 
-        <CardModal product={product} setShowModal={setShowModal}
-         addToCart={addToCart} setShowAlert={setShowAlert}
-         />}
 
         {showAlert && 
         <CustomAlert message={"Item Added To Cart"} 

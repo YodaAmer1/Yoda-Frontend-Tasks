@@ -1,4 +1,7 @@
-import type { CartItem } from "../Types/ProdData"
+import { Button } from "@mui/material";
+import type { CartItem } from "../Types/ProdData";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddIcon from '@mui/icons-material/Add';
 
 interface CartProps {
   cart: CartItem[]
@@ -37,6 +40,10 @@ export const Cart = ({cart, setCart}:CartProps) => {
     )
     }
 
+    const removeItem = (id: number) => {
+        setCart(cart.filter(item => item.product.id !== id))
+    }
+
     return(
         <div>
             <h2 className="header" style={{justifyContent: "center"}}>My Cart</h2>
@@ -58,6 +65,13 @@ export const Cart = ({cart, setCart}:CartProps) => {
                 <div className="cart-price">
                     ${item.product.price * item.quantity}
                 </div>
+                <Button
+                variant="outlined"
+                    style={{ marginLeft: 10,color:"red",border:"none" }}
+                    onClick={() => removeItem(item.product.id)}
+                    >
+                    <DeleteForeverIcon />
+                    </Button>
                 </div>
             ))}
             <div style={{fontSize:20, fontWeight:600}}>

@@ -1,4 +1,4 @@
-import type { Products } from "../Types/ProdData"; 
+import type { ProdData, Products } from "../Types/ProdData"; 
 
 const API_URL = "https://dummyjson.com/products";
 
@@ -14,10 +14,21 @@ export const fetchProducts= async(limit:number, skip:number) : Promise<Products>
         }
     }
 
+export const fetchSingleProduct= async(id: string) : Promise<ProdData> =>{
+        try{
+            const res = await fetch(`${API_URL}/${id}`);
+            const data = await res.json();
+            return data
+        }catch(error){
+            console.error("My Error: ", error);
+            throw error;
+        }
+    }
+
 
 export const getProductsByCategory= async(category:string) : Promise<Products> =>{
         try{
-            const res = await fetch(`${API_URL}/category/${category}`);
+            const res = await fetch(`${API_URL}/category/${category}?limit=100`);
             const data = await res.json();
             return data
         }catch(error){

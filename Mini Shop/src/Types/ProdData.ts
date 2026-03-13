@@ -12,11 +12,19 @@ export interface ProdData{
     category: string;
     price: number
     images:string[];
+    reviews: Reviews[];
     availabilityStatus: string;
-    rating:number
+    rating:number;
+    stock: number
 }
 
 export interface CartItem{
     product:ProdData,
     quantity:number
+}
+
+export interface Reviews{
+    rating: number;
+    comment: string;
+    reviewerName : string
 }
