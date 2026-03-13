@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import type { CartItem } from "../Types/ProdData";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AddIcon from '@mui/icons-material/Add';
 
 interface CartProps {
   cart: CartItem[]
