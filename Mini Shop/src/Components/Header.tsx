@@ -9,23 +9,29 @@ import { fetchProducts, getCategoryList } from '../apis/api';
 import { Box, Button } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { AIAssistant } from './AIAssistant';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { FavoriteListModal } from './FavoriteListModal';
+
 
 interface HeaderProps {
   totalItems: number
   cart:CartItem[]
   setCart: (item : CartItem[]) => void
+  favoriteList:  ProdData[]
   search: string
   setSearch: (value: string) => void
   sortType: string
   setSortType:(value:string) => void
   category : string
   setCategory :(value : string) => void
+  addToFavorite : (product: ProdData) => void
 }
 
-export const Header = ({totalItems , cart, setCart,search,setSearch,setSortType,sortType, category, setCategory}:HeaderProps) => {
+export const Header = ({totalItems , cart, setCart,favoriteList,search,setSearch,setSortType,sortType, category, setCategory,addToFavorite}:HeaderProps) => {
     const [openCart, setOpenCart] = useState(false);
     const [categoriesList, setCategoriesList] = useState<string[]>([]);
     const [helpModal, setHelpModal] = useState(false);
+    const [showFavorite, setShowFavorite] = useState(false);
     const [allProducts, setAllProducts] = useState<ProdData[]>([]); 
     useEffect(() => {
         fetchCategoriesList();
@@ -53,7 +59,7 @@ export const Header = ({totalItems , cart, setCart,search,setSearch,setSortType,
         <Categories category={category} setCategory={setCategory} categoriesList={categoriesList}/>
         <SortMenu sortType={sortType} setSortType={setSortType}/>
         
-        <Box sx={{display:"flex"}}>
+        <Box sx={{display:"flex" , gap: 2}}>
         <Button
                 variant="text"
                 size="small"
@@ -64,6 +70,12 @@ export const Header = ({totalItems , cart, setCart,search,setSearch,setSortType,
               <HelpIcon style={{fontSize:20}}/>  
             </Button>
 
+            <Button variant="text" size='small' sx={{textTransform: "none"}}
+                onClick={()=> setShowFavorite(true)}>
+                 <span style={{fontSize:15 , fontWeight : 600}}>Favorites</span>    
+                <FavoriteIcon fontSize="medium" sx={{color:"crimson"}}/>
+            </Button>
+            
             <button
               className="cart-button"
               title="My Cart"
@@ -87,6 +99,7 @@ export const Header = ({totalItems , cart, setCart,search,setSearch,setSortType,
         </>
         )}
       {helpModal && ( <AIAssistant helpModal={helpModal} setHelpModal={setHelpModal} cart={cart} allProducts={allProducts}/>)}
+      {showFavorite && <FavoriteListModal favoriteList={favoriteList} setCart={setCart} showFavorite={showFavorite} setShowFavorite={setShowFavorite} addToFavorite={addToFavorite}/>}
     </div>
     )
 }

@@ -4,15 +4,21 @@ import { useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CustomAlert } from "./CustomAlert";
 import { useNavigate } from "react-router-dom";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from "@mui/icons-material/Favorite"
+
 
 
 interface ProductCardProps{
     product: ProdData;
     addToCart: (product: ProdData) => void
+    addToFavorite :(product: ProdData) => void
+    favoriteList: ProdData[]
 }
 
-export const ProductCard = ({product,addToCart} : ProductCardProps) => {
+export const ProductCard = ({product,addToCart,addToFavorite,favoriteList} : ProductCardProps) => {
     const [showAlert, setShowAlert] = useState(false);
+    const liked = favoriteList.some(p => p.id === product.id)
 
     const navigate = useNavigate();
 
@@ -35,6 +41,18 @@ export const ProductCard = ({product,addToCart} : ProductCardProps) => {
                 Show more...
             </Button>
             </div>
+            <div style={{display: "flex", justifyContent: "center", position:"relative"}}>
+                <div style={{position: "absolute", left: 0, marginTop: 6}}>
+                    <Button 
+                    variant="text"
+                    onClick={() => {addToFavorite(product)}}>
+                    {liked ? 
+                    <FavoriteIcon fontSize="medium" sx={{color:"crimson"}}/>
+                     : 
+                    < FavoriteBorderIcon fontSize="medium" sx={{color:"black"}}/>
+                    }
+                    </Button>
+                </div>
 
              <Button
                 variant="outlined"
@@ -46,8 +64,8 @@ export const ProductCard = ({product,addToCart} : ProductCardProps) => {
                 endIcon={<ShoppingCartIcon />}
             >
             <span style={{fontSize:15, marginRight:-5}}>+</span>
-            </Button>
-
+            </Button>   
+            </div>
         </div>
 
         {showAlert && 
