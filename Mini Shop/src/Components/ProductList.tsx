@@ -6,14 +6,17 @@ import { Button, CircularProgress } from "@mui/material";
 
 interface ProductListProps{
     addToCart: (product: ProdData) => void
+    addToFavorite: (product: ProdData) => void
+    favoriteList: ProdData[]
     search: string
     sortType : string
     setSortType:(value:string) => void
     category : string
     setCategory :(value : string) => void
+    
 }
 
-export const ProductList = ({addToCart,search,sortType, setSortType,category,setCategory}:ProductListProps) => {
+export const ProductList = ({addToCart,addToFavorite,favoriteList,search,sortType, setSortType,category,setCategory}:ProductListProps) => {
     const [products, setProducts] = useState<Products>();
     const limit = 15;
     const [skip, setSkip] = useState<number>(0);
@@ -83,7 +86,7 @@ export const ProductList = ({addToCart,search,sortType, setSortType,category,set
 
                     {list?.map((product)=>(
                         <div key={product.id}>
-                        <ProductCard product={product} addToCart={addToCart} />
+                        <ProductCard product={product} addToCart={addToCart} addToFavorite={addToFavorite} favoriteList={favoriteList}/>
                         </div>
                 ))}
               

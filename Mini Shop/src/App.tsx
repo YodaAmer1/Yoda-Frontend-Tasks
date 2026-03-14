@@ -16,6 +16,11 @@ function App() {
     return savedCart ? JSON.parse(savedCart) : []
   })
 
+  const [favoriteList, setFavoriteList] = useState<ProdData[]>(()=>{
+    const savedFavoriteList = localStorage.getItem("favoriteList")
+    return savedFavoriteList ? JSON.parse(savedFavoriteList) : []
+  })
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search)
@@ -33,6 +38,11 @@ function App() {
     localStorage.setItem("cart", JSON.stringify(cart))
   }, [cart])
 
+  useEffect(() => {
+    localStorage.setItem("favoriteList",JSON.stringify(favoriteList))
+    console.log("Favorite:",favoriteList)
+  },[favoriteList])
+
   const addToCart = (product: ProdData) => {
     const existing = cart.find(item => item.product.id === product.id)
     if (existing){
@@ -45,6 +55,19 @@ function App() {
       setCart([...cart, { product, quantity: 1 }])
     }
   }
+
+  const addToFavorite = (product: ProdData) => {
+    const exists = favoriteList.find(p => p.id === product.id)
+
+    if (exists) {
+      setFavoriteList(
+        favoriteList.filter(p => p.id !== product.id)
+      )
+    } else {
+      setFavoriteList([...favoriteList, product])
+    }
+  }
+
   return (
     <BrowserRouter>
 
@@ -63,6 +86,8 @@ function App() {
             sortType={sortType}
             category={category}
             setCategory={setCategory}
+            favoriteList={favoriteList}
+            addToFavorite={addToFavorite}
           />
           
           <ProductList 
@@ -71,13 +96,16 @@ function App() {
           sortType={sortType}
            setSortType={setSortType} 
            category={category} 
-           setCategory={setCategory}/>
+           setCategory={setCategory}
+           favoriteList={favoriteList}
+           addToFavorite={addToFavorite}
+           />
           </>
         }/>
     
     <Route
       path="/products/:id"
-      element={<CardPage addToCart={addToCart} />}
+      element={<CardPage addToCart={addToCart} addToFavorite={addToFavorite} favoriteList={favoriteList}/>}
       />
     </Routes>
     </BrowserRouter>

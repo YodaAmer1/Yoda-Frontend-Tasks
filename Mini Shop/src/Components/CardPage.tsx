@@ -15,9 +15,11 @@ import { ProductsReviews } from "./ProductReviews";
 
 interface CardPageProps {
     addToCart:(product: ProdData) => void
+    addToFavorite: (product: ProdData) => void
+    favoriteList: ProdData[]
 }
 
-export const CardPage = ({addToCart}:CardPageProps) => {
+export const CardPage = ({addToCart,addToFavorite,favoriteList}:CardPageProps) => {
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<ProdData | null>(null);
     const [showAlert, setShowAlert] = useState(false);
@@ -185,7 +187,7 @@ export const CardPage = ({addToCart}:CardPageProps) => {
           {recommendedProducts.slice(startIndex, startIndex + 4)
           .map((prod)=>
             <Box key={prod.id} sx={{ minWidth: 250 }}>
-            <ProductCard product={prod} addToCart={addToCart}/>
+            <ProductCard product={prod} addToCart={addToCart} addToFavorite={addToFavorite} favoriteList={favoriteList} />
             </Box>
           )}
 
