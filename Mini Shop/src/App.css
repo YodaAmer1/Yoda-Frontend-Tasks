@@ -1,7 +1,6 @@
 .products-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   width: 80%;
   margin: 0 auto;
@@ -13,7 +12,6 @@
   padding: 15px;
   background: white;
   text-align: center;
-  width: 300px;
 }
 
   .product-title {
